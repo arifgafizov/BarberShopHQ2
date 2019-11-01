@@ -30,14 +30,12 @@ end
 
 post '/visit' do
 
-	@username = params[:username]
-	@phone = params[:phone]
-	@datetime = params[:datetime]
-	@barber = params[:barber]
-	@color = params[:color]
-
+	# Принимаем хеш с данными из вида visit
+	c = Client.new params[:client]
+	c.save
+	
 	# сохранение клиентов в БД на странице visit с помощью ActiveRecord
-	clients = Client.create(name: @username, phone: @phone, datestamp: @datetime, barber: @barber, color: @color)
+	#clients = Client.create(name: @username, phone: @phone, datestamp: @datetime, barber: @barber, color: @color)
 
 	erb :visit
 
