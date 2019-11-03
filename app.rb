@@ -38,14 +38,16 @@ post '/visit' do
 
 	# Принимаем хеш с данными из вида visit
 	c = Client.new params[:client]
-	c.save
-	
+	if c.save
+		erb "<h2>Thank you, you signed up </h2>"
+	else
+		erb "<h2>Error</h2>"
+	end
+
 	# сохранение клиентов в БД на странице visit с помощью ActiveRecord
 	#clients = Client.create(name: @username, phone: @phone, datestamp: @datetime, barber: @barber, color: @color)
 
-	erb :visit
-
-end
+	end
 
 get '/contacts' do
 	erb :contacts
