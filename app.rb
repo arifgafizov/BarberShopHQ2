@@ -7,7 +7,7 @@ require 'sinatra/activerecord'
 set :database, "sqlite3:barbershop.db"
 
 class Client < ActiveRecord::Base
-	# Валидация на пустое значение
+	# Валидация на пустое значение  и на минимум 3 знака имени
 	# аналогично :presence => true
 	validates :name, presence: true, length: { minimum: 3}
 	validates :phone, presence: true
@@ -72,4 +72,10 @@ end
 get '/barber/:id' do
 	@barber = Barber.find(params[:id])
 	erb :barber
+end
+
+get '/bookings' do
+	# получаем всех клиентов в переменную
+	@clients = Client.order('created_at DESC')
+	erb :bookings
 end
